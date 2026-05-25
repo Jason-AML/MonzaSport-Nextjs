@@ -31,7 +31,7 @@ const HeroVideo = () => {
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link
-            href="/collections"
+            href="/collection"
             className="px-10 py-4 bg-[#00C79F] text-background-dark font-bold uppercase tracking-widest rounded-lg hover:bg-primary/90 transition-all cursor-pointer"
           >
             {t("home_hero.btn_collection")}
@@ -41,7 +41,7 @@ const HeroVideo = () => {
           </button>
         </div>
       </div>
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
+      <div className="absolute bottom-20 left-1/2 -translate-x-1/2 animate-bounce">
         <Image
           src="/icons/expand_more.png" // ← nombre de tu archivo en public/
           alt="scroll down"
