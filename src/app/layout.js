@@ -8,7 +8,7 @@ import Footer from "@/components/layout/Footer";
 import FloatingBar from "@/components/layout/FloatingBar";
 import { getUser } from "@/services/auth/auth.server";
 import { AuthProvider } from "@/components/providers/AuthProvider";
-
+import { Analytics } from "@vercel/analytics/next";
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
@@ -21,7 +21,7 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
-  const user = await getUser()
+  const user = await getUser();
   return (
     <html
       lang="es"
@@ -29,14 +29,16 @@ export default async function RootLayout({ children }) {
     >
       <body className="min-h-full flex flex-col ">
         <I18nProvider>
+          <Analytics />
           <QueryProvider>
             <AuthProvider initialUser={user}>
-            <main className="bg-[#0A0A0A] text-gray-300 flex-1 flex flex-col">
-              {children}
-            </main>
-            <FloatingBar />
-            <Footer />
-            <Navbar /></AuthProvider>
+              <main className="bg-[#0A0A0A] text-gray-300 flex-1 flex flex-col">
+                {children}
+              </main>
+              <FloatingBar />
+              <Footer />
+              <Navbar />
+            </AuthProvider>
           </QueryProvider>
         </I18nProvider>
       </body>
