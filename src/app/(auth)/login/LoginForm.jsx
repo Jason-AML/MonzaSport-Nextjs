@@ -1,6 +1,9 @@
 "use client";
 
+import { signIn } from '@/services/auth/auth.client';
 import Link from 'next/link';
+
+import { useRouter } from 'next/navigation';
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -9,19 +12,24 @@ const LoginForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
-
+    const Router = useRouter();
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-        // Aquí iría la lógica de autenticación, por ejemplo, una llamada a la API
-        setTimeout(() => {
-            setLoading(false);
-            alert('Login successful (simulado)');
-        }, 2000);
+        signIn(email, password)
+            .then(() => {
+                console.log("Inicio de sesión exitoso");
+                Router.push("/") // Redirige a la página de inicio después del inicio de sesión
+            })
+            .catch((error) => {
+                
+                console.error(error);
+            })
+            .finally(() => setLoading(false));
     };
   return (
     <main role="main" aria-label="Inicio de sesión" className="relative min-h-screen overflow-hidden bg-slate-950 text-white">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(56,189,248,0.2),transparent_25%),radial-gradient(circle_at_bottom_right,_rgba(16,185,129,0.18),transparent_25%)]" aria-hidden="true" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.2),transparent_25%),radial-gradient(circle_at_bottom_right,rgba(16,185,129,0.18),transparent_25%)]" aria-hidden="true" />
       <div className="relative mx-auto flex min-h-screen w-full max-w-6xl items-center px-6 py-12">
         <div className="grid w-full gap-10 lg:grid-cols-[1.2fr_0.9fr]">
           <section aria-label="Presentación de Monza Motors" className="hidden overflow-hidden rounded-[40px] border border-white/10 bg-slate-900/80 p-10 shadow-2xl shadow-cyan-500/10 lg:block">
@@ -106,7 +114,7 @@ const LoginForm = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full rounded-3xl bg-cyan-500 px-5 py-4 text-sm font-semibold uppercase tracking-[0.25em] text-slate-950 transition hover:bg-cyan-400 disabled:cursor-not-allowed disabled:opacity-70"
+                className="w-full cursor-pointer rounded-3xl bg-cyan-500 px-5 py-4 text-sm font-semibold uppercase tracking-[0.25em] text-slate-950 transition hover:bg-cyan-400 disabled:cursor-not-allowed disabled:opacity-70"
               >
                 {loading ? t("login.btn") : t("login.btn")}
               </button>
