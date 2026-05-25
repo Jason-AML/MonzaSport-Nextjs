@@ -5,14 +5,14 @@ import React from "react";
 import { LenguageSwitch } from "../lenguage/LenguageSwitch";
 import Image from "next/image";
 import { useTranslation } from "react-i18next";
+import { useAuth } from "../providers/AuthProvider";
+import { signOut } from "@/services/auth/auth.client";
 const Navbar = () => {
   const { t } = useTranslation();
-  const loadingAuth = false; // Simulación de estado de carga
-  const user = { email: "user@example.com" }; // Simulación de usuario autenticado
 
+  const { user, loading } = useAuth();
   const handleLogout = () => {
-    // Lógica para cerrar sesión
-    console.log("Cerrar sesión");
+    signOut();
   };
   return (
     <nav className="fixed top-0 w-full z-50  text-white">
@@ -24,13 +24,15 @@ const Navbar = () => {
             </Link>
           </div>
           <div className="hidden md:flex items-center gap-8">
-            <Link href="/collections">{t("nav.link_1")}</Link>
+            <Link href="/collection">{t("nav.link_1")}</Link>
             <Link href="/about">{t("nav.link_2")}</Link>
             <Link href="/contact">{t("nav.link_3")}</Link>
           </div>
         </div>
-        {loadingAuth ? (
-          "cargando"
+        {loading ? (
+          <div className="animate-pulse bg-gray-200 border border-gray-300 rounded-lg py-2 px-4">
+            <div className="h-4 bg-gray-300 rounded w-3/4"></div>
+          </div>
         ) : user ? (
           <>
             {" "}
@@ -138,7 +140,7 @@ const Navbar = () => {
         ) : (
           <>
             <div className="flex items-center gap-6">
-              <Link to="/register" className="btn btn-accent">
+              <Link href="/register" className="btn btn-accent">
                 {t("nav.btn")}
               </Link>
               <LenguageSwitch />
