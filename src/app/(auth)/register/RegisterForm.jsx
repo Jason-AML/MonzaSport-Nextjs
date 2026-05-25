@@ -109,14 +109,14 @@ const RegisterForm = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full rounded-3xl bg-cyan-500 px-5 py-4 text-sm font-semibold uppercase tracking-[0.25em] text-slate-950 transition hover:bg-cyan-400 disabled:cursor-not-allowed disabled:opacity-70"
+                className="w-full rounded-3xl cursor-pointer bg-cyan-500 px-5 py-4 text-sm font-semibold uppercase tracking-[0.25em] text-slate-950 transition hover:bg-cyan-400 disabled:cursor-not-allowed disabled:opacity-70"
               >
                 {loading ? t("register.btn") : t("register.btn")}
               </button>
             </form>
 
             <div className="mt-8 flex flex-col gap-4 text-sm text-slate-600 sm:flex-row sm:items-center sm:justify-between">
-              <Link href="/login" className="font-medium text-cyan-600 transition hover:text-cyan-500">
+              <Link href="/login" className="font-medium  text-cyan-600 transition hover:text-cyan-500">
                 {t("register.has_account")}
               </Link>
               <Link href="/" className="font-medium text-slate-500 transition hover:text-slate-700">
