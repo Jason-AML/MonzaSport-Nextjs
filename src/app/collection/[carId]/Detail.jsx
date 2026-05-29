@@ -18,9 +18,7 @@ const Detail = ({ carId }) => {
       const response = await fetch("/api/checkout", {
         method: "POST",
         body: JSON.stringify({
-          name: vehicle.nombre_vehiculo,
-          price: vehicle.precio,
-          image: vehicle.url_img,
+          id: vehicle.id,
         }),
         headers: {
           "Content-Type": "application/json",
