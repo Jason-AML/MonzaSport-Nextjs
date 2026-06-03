@@ -8,8 +8,8 @@ export async function POST(request) {
   const { id } = await request.json();
   const vehicle = await getCollectionById(id);
 const baseUrl = process.env.NODE_ENV === "production"
-  ? process.env.VERCEL_URL       
-  : process.env.NEXT_PUBLIC_BASE_URL; 
+  ? `https://${process.env.VERCEL_URL}`  
+  : process.env.NEXT_PUBLIC_BASE_URL;
   const session = await stripe.checkout.sessions.create({
     success_url: `${baseUrl}/success`,
     cancel_url: `${baseUrl}/cancel`,
