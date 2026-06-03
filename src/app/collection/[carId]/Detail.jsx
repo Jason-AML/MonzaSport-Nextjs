@@ -18,9 +18,7 @@ const Detail = ({ carId }) => {
       const response = await fetch("/api/checkout", {
         method: "POST",
         body: JSON.stringify({
-          name: vehicle.nombre_vehiculo,
-          price: vehicle.precio,
-          image: vehicle.url_img,
+          id: vehicle.id,
         }),
         headers: {
           "Content-Type": "application/json",
@@ -28,7 +26,6 @@ const Detail = ({ carId }) => {
       });
       const session = await response.json();
       window.location.href = session.url; 
-      console.log("Stripe session created:", session)
   };
   return (
     <section className="bg-[#0A0A0A] text-slate-800  min-h-screen pt-10">

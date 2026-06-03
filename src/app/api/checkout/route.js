@@ -1,24 +1,31 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
-
+import { getCollectionById } from "@/services/collectionClient";
 const stripe = new Stripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
 );
 export async function POST(request) {
-  const { name, price, image } = await request.json();
+  const { id } = await request.json();
+  const vehicle = await getCollectionById(id);
+const baseUrl = process.env.NODE_ENV === "production"
+  ? process.env.VERCEL_URL       
+  : process.env.NEXT_PUBLIC_BASE_URL; 
   const session = await stripe.checkout.sessions.create({
-    success_url: "http://localhost:3000/success",
+    success_url: `${baseUrl}/success`,
+    cancel_url: `${baseUrl}/cancel`,
+    payment_method_types: ["card"],
+    metadata: {
+    vehicleId: vehicle.id,
+  },
     line_items: [
       {
         price_data: {
           currency: "usd",
           product_data: {
-            name: name,
-            images: [
-              image,
-            ],
+            
+            name: vehicle.nombre_vehiculo,
           },
-          unit_amount: price * 100,
+          unit_amount: vehicle.precio * 100,
         },
         quantity: 1,
       },
@@ -27,4 +34,5 @@ export async function POST(request) {
   });
 
   return NextResponse.json(session);
+  
 }
