@@ -26,7 +26,6 @@ const Detail = ({ carId }) => {
       });
       const session = await response.json();
       window.location.href = session.url; 
-      console.log("Stripe session created:", session)
   };
   return (
     <section className="bg-[#0A0A0A] text-slate-800  min-h-screen pt-10">
