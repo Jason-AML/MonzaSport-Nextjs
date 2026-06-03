@@ -16,8 +16,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Monza Motors",
-  description: "Precision in motion.",
+  title: "Monza Sports",
+  description: "Explora nuestra colección de vehículos y encuentra el que se adapte a tus necesidades.",
 };
 
 export default async function RootLayout({ children }) {
