@@ -1,13 +1,13 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import QueryProvider from "@/components/providers/QueryProvider";
-import I18nProvider from "@/components/providers/I18nProvider";
+import QueryProvider from "@/providers/QueryProvider";
+import I18nProvider from "@/providers/I18nProvider";
 import "material-symbols/outlined.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import FloatingBar from "@/components/layout/FloatingBar";
 import { getUser } from "@/services/auth/auth.server";
-import { AuthProvider } from "@/components/providers/AuthProvider";
+import { AuthProvider } from "@/providers/AuthProvider";
 import { Analytics } from "@vercel/analytics/next";
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({

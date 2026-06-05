@@ -4,7 +4,7 @@ import { getCollections } from "@/services/collectionClient";
 import { useState } from "react";
 import Card from "@/components/collection/Card";
 
-const Collection = () => {
+const CollectionView = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [price, setPrice] = useState(350000);
   const { data, isPending, error } = useQuery({
@@ -138,4 +138,4 @@ const Collection = () => {
   );
 };
 
-export default Collection;
+export default CollectionView;
