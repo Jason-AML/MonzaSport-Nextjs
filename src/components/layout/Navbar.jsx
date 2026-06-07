@@ -5,7 +5,7 @@ import React from "react";
 import { LenguageSwitch } from "../lenguage/LenguageSwitch";
 import Image from "next/image";
 import { useTranslation } from "react-i18next";
-import { useAuth } from "../providers/AuthProvider";
+import { useAuth } from "../../providers/AuthProvider";
 import { signOut } from "@/services/auth/auth.client";
 const Navbar = () => {
   const { t } = useTranslation();
@@ -25,8 +25,8 @@ const Navbar = () => {
           </div>
           <div className="hidden md:flex items-center gap-8">
             <Link href="/collection">{t("nav.link_1")}</Link>
-            <Link href="/about">{t("nav.link_2")}</Link>
-            <Link href="/contact">{t("nav.link_3")}</Link>
+            <Link href="#">{t("nav.link_2")}</Link>
+            <Link href="#">{t("nav.link_3")}</Link>
           </div>
         </div>
         {loading ? (

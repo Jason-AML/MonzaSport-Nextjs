@@ -1,11 +1,8 @@
-
-
 import React from "react";
-import Collection from "./Collection";
+import CollectionView from "../../components/collection/Collection-View";
 
 const CollectionPage = () => {
-  
-  return <Collection/>
+  return <CollectionView />;
 };
 
 export default CollectionPage;

@@ -3,17 +3,18 @@ import { useQuery } from "@tanstack/react-query";
 import { getCollections } from "@/services/collectionClient";
 import { useState } from "react";
 import Card from "@/components/collection/Card";
-
-const Collection = () => {
-  const [searchTerm, setSearchTerm] = useState("");
+import {useMemo} from "react";
+const CollectionView = () => {
   const [price, setPrice] = useState(350000);
   const { data, isPending, error } = useQuery({
     queryKey: ["collections"],
     queryFn: getCollections,
   });
-  const filteredData = data?.filter((collection) =>
-    collection.precio <= price 
-  );
+  const filteredData =useMemo(() => {
+    return data?.filter((collection) =>
+      collection.precio <= price 
+    );
+  }, [data, price]);
   const handleClearFilter = () => {
     setSearchTerm("");
     setPrice(350000);
@@ -138,4 +139,4 @@ const Collection = () => {
   );
 };
 
-export default Collection;
+export default CollectionView;
