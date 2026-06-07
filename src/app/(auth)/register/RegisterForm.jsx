@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-
+import { registerService } from '@/services/auth/auth.client';
 import React from 'react'
 
 const RegisterForm = () => {
@@ -16,15 +16,17 @@ const RegisterForm = () => {
         e.preventDefault();
         setLoading(true);
         // Aquí iría la lógica de autenticación, por ejemplo, una llamada a la API  
-        setTimeout(() => {
-            setLoading(false);
-            alert('Registro exitoso (simulado)');
-        }   
-        , 2000);
+       try {
+        await registerService(email, password);
+       } catch (error) {
+        console.log("Error al registrar:", error);
+       } finally {
+        setLoading(false);
+       }
     };
   return (
     <main role="main" aria-label="Inicio de sesión" className="relative min-h-screen overflow-hidden bg-slate-950 text-white">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(56,189,248,0.2),transparent_25%),radial-gradient(circle_at_bottom_right,_rgba(16,185,129,0.18),transparent_25%)]" aria-hidden="true" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.2),transparent_25%),radial-gradient(circle_at_bottom_right,rgba(16,185,129,0.18),transparent_25%)]" aria-hidden="true" />
       <div className="relative mx-auto flex min-h-screen w-full max-w-6xl items-center px-6 py-12">
         <div className="grid w-full gap-10 lg:grid-cols-[1.2fr_0.9fr]">
           <section aria-label="Presentación de Monza Motors" className="hidden overflow-hidden rounded-[40px] border border-white/10 bg-slate-900/80 p-10 shadow-2xl shadow-cyan-500/10 lg:block">
