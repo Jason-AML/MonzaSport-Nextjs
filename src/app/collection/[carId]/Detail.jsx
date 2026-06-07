@@ -1,9 +1,10 @@
 "use client";
 import { useQuery } from "@tanstack/react-query";
 import { getCollectionById } from "@/services/collectionClient";
-
+import {useRouter} from "next/navigation";
 
 const Detail = ({ carId }) => {
+  const router = useRouter();
   const {
     data: vehicle,
     isLoading,
@@ -13,6 +14,7 @@ const Detail = ({ carId }) => {
     queryFn: async () => getCollectionById(carId),
     staleTime: 1000 * 60 * 5,
   });
+  
   const handleStripe = async (vehicle) => {
     
       const response = await fetch("/api/checkout", {
@@ -24,6 +26,10 @@ const Detail = ({ carId }) => {
           "Content-Type": "application/json",
         },
       });
+      if (response.status === 401) {
+      router.push("/error"); 
+      return;
+    }
       const session = await response.json();
       window.location.href = session.url; 
   };
