@@ -6,7 +6,7 @@ import { getUser } from "@/services/auth/auth.server";
 const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 export async function POST(request) {
   try {
-    const user = await getUser(); // ✅ await
+    const user = await getUser(); 
 
     if (!user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -17,7 +17,7 @@ export async function POST(request) {
 
     const baseUrl =
       process.env.NODE_ENV === "production"
-        ? `https://${process.env.VERCEL_URL}` // ✅ prefijo https://
+        ? `https://${process.env.VERCEL_URL}` 
         : process.env.NEXT_PUBLIC_BASE_URL;
 
     const session = await stripe.checkout.sessions.create({
