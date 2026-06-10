@@ -20,9 +20,9 @@ export async function generateMetadata({ params }) {
 }
 const page = async ({ params }) => {
   const { carId } = await params;
-  
+
   const vehicle = await getCollectionById(carId);
-  return <Detail  vehicle={vehicle} />;
+  return <Detail vehicle={vehicle} />;
 };
 
 export default page;
