@@ -85,7 +85,7 @@ export default function Card({ data }) {
             className="text-2xl font-bold tracking-tighter"
             aria-label={`Precio: ${data.precio}`}
           >
-            {data.precio}
+            $ {data.precio}
           </span>
           <button
             className="size-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-primary hover:text-background-dark transition-all"
