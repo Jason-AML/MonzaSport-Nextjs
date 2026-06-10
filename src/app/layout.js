@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 
 
 export const metadata = {
-  metadataBase: new URL("https://www.monzamotors.com"),
+  metadataBase: new URL("https://monza-sport-nextjs-bsxavtps7-jasons-projects-ba674d97.vercel.app"),
   title: "Monza Motors - Home",
   description:
     "Bienvenido a Monza Motors, donde la precisión se encuentra con la pasión por los vehículos. Explora nuestra colección de vehículos y aplicaciones desarrollados con dedicación y excelencia.",
