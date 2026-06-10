@@ -15,9 +15,32 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+
 export const metadata = {
-  title: "Monza Sports",
-  description: "Explora nuestra colección de vehículos y encuentra el que se adapte a tus necesidades.",
+  metadataBase: new URL("https://monza-sport-nextjs-bsxavtps7-jasons-projects-ba674d97.vercel.app"),
+  title: "Monza Motors - Home",
+  description:
+    "Bienvenido a Monza Motors, donde la precisión se encuentra con la pasión por los vehículos. Explora nuestra colección de vehículos y aplicaciones desarrollados con dedicación y excelencia.",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "Monza Motors - Home",
+    description:
+      "Bienvenido a Monza Motors, donde la precisión se encuentra con la pasión por los vehículos. Explora nuestra colección de vehículos y aplicaciones desarrollados con dedicación y excelencia.",
+    url: "https://www.monzamotors.com",
+    siteName: "Monza Motors",
+    images: [
+      {
+        url: "https://www.monzamotors.com/motos.webp",
+        width: 1200,
+        height: 630,
+        alt: "Monza Motors - Precision in Motion",
+      },
+    ],
+    locale: "es_ES",
+    type: "website",
+  },
 };
 
 export default async function RootLayout({ children }) {
