@@ -13,7 +13,7 @@ const FloatingBar = () => {
 
   return (
     <>
-      <div className="fixed bottom-10 inset-x-0 flex justify-center z-1000">
+      <div className="fixed bottom-10 inset-x-0 flex justify-center z-300">
         <div className="flex items-center gap-4 bg-zinc-900/80 backdrop-blur-sm rounded-full px-6 py-3 shadow-lg">
           <span className="text-xs text-zinc-400 font-bold uppercase tracking-widest">
             {t("floatingBar.help")}

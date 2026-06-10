@@ -3,20 +3,17 @@ import { useQuery } from "@tanstack/react-query";
 import { getCollections } from "@/services/collectionClient";
 import { useState } from "react";
 import Card from "@/components/collection/Card";
-import {useMemo} from "react";
+import { useMemo } from "react";
 const CollectionView = () => {
   const [price, setPrice] = useState(350000);
   const { data, isPending, error } = useQuery({
     queryKey: ["collections"],
     queryFn: getCollections,
   });
-  const filteredData =useMemo(() => {
-    return data?.filter((collection) =>
-      collection.precio <= price 
-    );
+  const filteredData = useMemo(() => {
+    return data?.filter((collection) => collection.precio <= price);
   }, [data, price]);
   const handleClearFilter = () => {
-    setSearchTerm("");
     setPrice(350000);
   };
   return (
@@ -53,7 +50,6 @@ const CollectionView = () => {
           <div className="flex flex-col lg:flex-row gap-10">
             <aside className="w-full lg:w-72 space-y-8 shrink-0">
               <div className="space-y-6">
-                
                 <div>
                   <h4 className="text-xs font-bold uppercase tracking-widest text-accent mb-4">
                     Price Range

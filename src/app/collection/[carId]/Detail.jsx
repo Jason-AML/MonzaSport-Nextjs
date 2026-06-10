@@ -1,42 +1,29 @@
 "use client";
-import { useQuery } from "@tanstack/react-query";
-import { getCollectionById } from "@/services/collectionClient";
-import {useRouter} from "next/navigation";
 
-const Detail = ({ carId }) => {
+import { useRouter } from "next/navigation";
+
+const Detail = ({ vehicle }) => {
   const router = useRouter();
-  const {
-    data: vehicle,
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ["car", carId],
-    queryFn: async () => getCollectionById(carId),
-    staleTime: 1000 * 60 * 5,
-  });
-  
+
   const handleStripe = async (vehicle) => {
-    
-      const response = await fetch("/api/checkout", {
-        method: "POST",
-        body: JSON.stringify({
-          id: vehicle.id,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      if (response.status === 401) {
-      router.push("/error"); 
+    const response = await fetch("/api/checkout", {
+      method: "POST",
+      body: JSON.stringify({
+        id: vehicle.id,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (response.status === 401) {
+      router.push("/error");
       return;
     }
-      const session = await response.json();
-      window.location.href = session.url; 
+    const session = await response.json();
+    window.location.href = session.url;
   };
   return (
     <section className="bg-[#0A0A0A] text-slate-800  min-h-screen pt-10">
-      {isLoading && <p>Loading...</p>}
-      {error && <p>Error: {error.message}</p>}
       {vehicle && (
         <div className="bg-[#0A0A0A] dark:bg-background-dark text-slate-800 dark:text-slate-200 min-h-screen pt-10">
           <div className="max-w-360 mx-auto px-6 lg:px-20 py-10 relative">

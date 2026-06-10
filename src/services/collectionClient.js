@@ -1,5 +1,5 @@
 import { createClient } from "@/lib/client";
-
+import { cache } from "react";
 
 export const getCollections = async () => {
     const supabase = await createClient()
@@ -28,11 +28,11 @@ export const getFabricas = async () => {
     return data
 }
 
-export const getCollectionById = async (id) => {    
+export const getCollectionById = cache(async (id) => {    
     const supabase = await createClient()
     const { data, error } = await supabase.from('vehiculos').select('*, fabricas(*),stored(*)').eq('id', id).single()
     if (error) {
         throw new Error(error.message)
     }   
     return data
-}
+})
