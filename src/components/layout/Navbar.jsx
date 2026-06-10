@@ -12,7 +12,16 @@ const Navbar = () => {
 
   const { user, loading } = useAuth();
   const handleLogout = () => {
+
     signOut();
+    showToast.success("¡Has cerrado sesión!", {
+      duration: 4000,
+      progress: true,
+      position: "top-right",
+      transition: "swingInverted",
+      icon: '',
+      sound: true,
+    });
   };
   return (
     <nav className="fixed top-0 w-full z-50  text-white">

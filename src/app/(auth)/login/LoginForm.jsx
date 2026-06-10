@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-
+import { showToast } from "nextjs-toast-notify";
 const LoginForm = () => {
   const { t } = useTranslation();
   const [email, setEmail] = useState("");
@@ -17,10 +17,26 @@ const LoginForm = () => {
     setLoading(true);
     signIn(email, password)
       .then(() => {
+        showToast.success("¡Bienvenido!", {
+    duration: 4000,
+    progress: true,
+    position: "top-right",
+    transition: "swingInverted",
+    icon: '',
+    sound: true,
+  });
         Router.push("/"); // Redirige a la página de inicio después del inicio de sesión
       })
       .catch((error) => {
         console.error(error);
+        showToast.error("Error al iniciar sesión: " + error.message, {
+          duration: 3000,
+          progress: true,
+          position: "top-right",
+          transition: "swingInverted",
+          icon: '',
+          sound: true,
+        });
       })
       .finally(() => setLoading(false));
   };

@@ -23,6 +23,7 @@
     "i18next-browser-languagedetector": "^8.2.1",
     "material-symbols": "^0.44.4",
     "next": "16.2.4",
+    "nextjs-toast-notify": "^1.61.0",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "react-i18next": "^17.0.4",

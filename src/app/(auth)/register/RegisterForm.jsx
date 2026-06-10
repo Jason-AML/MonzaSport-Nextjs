@@ -1,35 +1,85 @@
 "use client";
 
-import Link from 'next/link';
-import { useState } from 'react'
-import { useTranslation } from 'react-i18next'
-import { registerService } from '@/services/auth/auth.client';
-import React from 'react'
+import Link from "next/link";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { registerService } from "@/services/auth/auth.client";
+import { showToast } from "nextjs-toast-notify";
+import React from "react";
 
 const RegisterForm = () => {
-    const { t } = useTranslation();
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [loading, setLoading] = useState(false);
+  const { t } = useTranslation();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setLoading(true);
-        // Aquí iría la lógica de autenticación, por ejemplo, una llamada a la API  
-       try {
-        await registerService(email, password);
-       } catch (error) {
-        console.log("Error al registrar:", error);
-       } finally {
-        setLoading(false);
-       }
-    };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const { data, error } = await registerService(email, password);
+
+      if (error) {
+        showToast.error("Error al registrar: " + error.message, {
+          duration: 3000,
+          progress: true,
+          position: "top-right",
+          transition: "swingInverted",
+          icon: "",
+          sound: true,
+        });
+        return;
+      }
+ // Verificar si el correo ya está registrado
+      if (data?.user?.identities?.length === 0) {
+        showToast.error("Este correo ya está registrado.", {
+          duration: 3000,
+          progress: true,
+          position: "top-right",
+          transition: "swingInverted",
+          icon: "",
+          sound: true,
+        });
+        return;
+      }
+
+      showToast.success("¡Registro exitoso! Ahora puedes iniciar sesión.", {
+        duration: 4000,
+        progress: true,
+        position: "top-right",
+        transition: "swingInverted",
+        icon: "",
+        sound: true,
+      });
+    } catch (error) {
+      showToast.error("Error inesperado: " + error.message, {
+        duration: 3000,
+        progress: true,
+        position: "top-right",
+        transition: "swingInverted",
+        icon: "",
+        sound: true,
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
-    <main role="main" aria-label="Inicio de sesión" className="relative min-h-screen overflow-hidden bg-slate-950 text-white">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.2),transparent_25%),radial-gradient(circle_at_bottom_right,rgba(16,185,129,0.18),transparent_25%)]" aria-hidden="true" />
+    <main
+      role="main"
+      aria-label="Inicio de sesión"
+      className="relative min-h-screen overflow-hidden bg-slate-950 text-white"
+    >
+      <div
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.2),transparent_25%),radial-gradient(circle_at_bottom_right,rgba(16,185,129,0.18),transparent_25%)]"
+        aria-hidden="true"
+      />
       <div className="relative mx-auto flex min-h-screen w-full max-w-6xl items-center px-6 py-12">
         <div className="grid w-full gap-10 lg:grid-cols-[1.2fr_0.9fr]">
-          <section aria-label="Presentación de Monza Motors" className="hidden overflow-hidden rounded-[40px] border border-white/10 bg-slate-900/80 p-10 shadow-2xl shadow-cyan-500/10 lg:block">
+          <section
+            aria-label="Presentación de Monza Motors"
+            className="hidden overflow-hidden rounded-[40px] border border-white/10 bg-slate-900/80 p-10 shadow-2xl shadow-cyan-500/10 lg:block"
+          >
             <div className="flex h-full flex-col justify-between gap-8">
               <div>
                 <span className="inline-flex rounded-full border border-cyan-300/30 bg-cyan-400/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-cyan-300">
@@ -45,12 +95,20 @@ const RegisterForm = () => {
 
               <div className="grid gap-6 text-slate-300">
                 <div className="rounded-3xl bg-slate-800/70 p-6 ring-1 ring-white/10">
-                  <p className="text-xs uppercase tracking-[0.32em] text-slate-400">Experiencia</p>
-                  <p className="mt-3 text-3xl font-semibold text-white">+25 años</p>
+                  <p className="text-xs uppercase tracking-[0.32em] text-slate-400">
+                    Experiencia
+                  </p>
+                  <p className="mt-3 text-3xl font-semibold text-white">
+                    +25 años
+                  </p>
                 </div>
                 <div className="rounded-3xl bg-slate-800/70 p-6 ring-1 ring-white/10">
-                  <p className="text-xs uppercase tracking-[0.32em] text-slate-400">Confianza</p>
-                  <p className="mt-3 text-3xl font-semibold text-white">Clientes Premium</p>
+                  <p className="text-xs uppercase tracking-[0.32em] text-slate-400">
+                    Confianza
+                  </p>
+                  <p className="mt-3 text-3xl font-semibold text-white">
+                    Clientes Premium
+                  </p>
                 </div>
               </div>
 
@@ -63,8 +121,12 @@ const RegisterForm = () => {
           <section className="rounded-[40px] bg-white/95 p-8 shadow-2xl shadow-slate-950/20 backdrop-blur-xl text-slate-950">
             <div className="mb-8 flex items-center justify-between gap-4">
               <div>
-                <p className="text-sm uppercase tracking-[0.35em] text-cyan-600">Bienvenido</p>
-                <h2 className="mt-3 text-3xl font-semibold">{t("register.title")}</h2>
+                <p className="text-sm uppercase tracking-[0.35em] text-cyan-600">
+                  Bienvenido
+                </p>
+                <h2 className="mt-3 text-3xl font-semibold">
+                  {t("register.title")}
+                </h2>
               </div>
               <span className="inline-flex rounded-2xl bg-cyan-50 px-4 py-2 text-sm font-medium text-cyan-700">
                 Monza Sports
@@ -77,7 +139,10 @@ const RegisterForm = () => {
 
             <form className="space-y-6" onSubmit={handleSubmit}>
               <div>
-                <label htmlFor="login-email" className="block text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 mb-2">
+                <label
+                  htmlFor="register-email"
+                  className="block text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 mb-2"
+                >
                   {t("register.email_label")}
                 </label>
                 <input
@@ -93,7 +158,10 @@ const RegisterForm = () => {
               </div>
 
               <div>
-                <label htmlFor="register-password" className="block text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 mb-2">
+                <label
+                  htmlFor="register-password"
+                  className="block text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 mb-2"
+                >
                   {t("register.password_label")}
                 </label>
                 <input
@@ -118,10 +186,16 @@ const RegisterForm = () => {
             </form>
 
             <div className="mt-8 flex flex-col gap-4 text-sm text-slate-600 sm:flex-row sm:items-center sm:justify-between">
-              <Link href="/login" className="font-medium  text-cyan-600 transition hover:text-cyan-500">
+              <Link
+                href="/login"
+                className="font-medium  text-cyan-600 transition hover:text-cyan-500"
+              >
                 {t("register.has_account")}
               </Link>
-              <Link href="/" className="font-medium text-slate-500 transition hover:text-slate-700">
+              <Link
+                href="/"
+                className="font-medium text-slate-500 transition hover:text-slate-700"
+              >
                 {t("register.back_home")}
               </Link>
             </div>
@@ -129,7 +203,7 @@ const RegisterForm = () => {
         </div>
       </div>
     </main>
-  )
-}
+  );
+};
 
-export default RegisterForm
+export default RegisterForm;
