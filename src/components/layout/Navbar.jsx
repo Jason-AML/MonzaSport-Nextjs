@@ -7,6 +7,7 @@ import Image from "next/image";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../../providers/AuthProvider";
 import { signOut } from "@/services/auth/auth.client";
+import { showToast } from "nextjs-toast-notify";
 const Navbar = () => {
   const { t } = useTranslation();
 

@@ -1,7 +1,5 @@
-import CategorySplit from "@/components/home/CategorySplit";
-import HeroVideo from "@/components/home/HeroVideo";
-import LatestNews from "@/components/home/LatestNews";
-import Testimonials from "@/components/home/Testimonials";
+import HomeView from "@/components/home/HomeView";
+
 
 export const metadata = {
   title: "Home",
@@ -9,10 +7,7 @@ export const metadata = {
 export default async function Home() {
   return (
     <>
-      <HeroVideo />
-      <CategorySplit />
-      <Testimonials />
-      <LatestNews />
+     <HomeView />
     </>
   );
 }
