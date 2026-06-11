@@ -6,7 +6,7 @@ import Card from "@/components/collection/Card";
 import { useMemo } from "react";
 const CollectionView = () => {
   const [price, setPrice] = useState(350000);
-  const { data, isPending, error } = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: ["collections"],
     queryFn: getCollections,
   });
@@ -91,7 +91,7 @@ const CollectionView = () => {
             </aside>
             <div className="grow">
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                {isPending ? (
+                {isLoading ? (
                   <p>Cargando...</p>
                 ) : filteredData.length > 0 ? (
                   <>
