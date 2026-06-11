@@ -3,7 +3,7 @@ import Stripe from "stripe";
 import { getCollectionById } from "@/services/collectionClient";
 import { getUser } from "@/services/auth/auth.server";
 
-const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
+const stripe = new Stripe(process.env.NEXT_STRIPE_SECRET_KEY);
 export async function POST(request) {
   try {
     const user = await getUser(); 
