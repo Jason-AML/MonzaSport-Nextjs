@@ -11,13 +11,14 @@ const AuthContext = createContext({
 
 export function AuthProvider({ children, initialUser }) {
   const [user, setUser] = useState(initialUser)
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(!initialUser)
   const supabase = createClient()
 
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
         setUser(session?.user ?? null)
+        setLoading(false)
       }
     )
     return () => subscription.unsubscribe()
