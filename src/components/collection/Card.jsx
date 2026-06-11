@@ -87,18 +87,15 @@ export default function Card({ data }) {
           >
             $ {data.precio}
           </span>
-          <button
-            className="size-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-primary hover:text-background-dark transition-all"
-            aria-label={`Ver detalles de ${data.nombre_vehiculo}`}
-          >
+          <div className="text-accent duration-300 group-hover:translate-x-1 size-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-primary hover:text-background-dark transition-all">
             <Link
-              href={`/collection/${data.id}`}
               className="material-symbols-outlined"
-              aria-hidden="true"
+              href={`/collection/${data.id}`}
+              aria-label={`Ver detalles de ${data.nombre_vehiculo}`}
             >
               arrow_forward
             </Link>
-          </button>
+          </div>
         </div>
       </div>
     </article>
