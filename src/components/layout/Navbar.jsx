@@ -7,12 +7,22 @@ import Image from "next/image";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../../providers/AuthProvider";
 import { signOut } from "@/services/auth/auth.client";
+import { showToast } from "nextjs-toast-notify";
 const Navbar = () => {
   const { t } = useTranslation();
 
   const { user, loading } = useAuth();
   const handleLogout = () => {
+
     signOut();
+    showToast.success("¡Has cerrado sesión!", {
+      duration: 4000,
+      progress: true,
+      position: "top-right",
+      transition: "swingInverted",
+      icon: '',
+      sound: true,
+    });
   };
   return (
     <nav className="fixed top-0 w-full z-50  text-white">
