@@ -29,7 +29,7 @@ export async function POST(req) {
       .select("role, content")
       .eq("user_id", user_id)
       .order("created_at", { ascending: true })
-      .limit(20);
+      .limit(8);
 
     if (historyError) throw new Error("Error al cargar historial");
     const result = streamText({
