@@ -20,7 +20,7 @@ export function useChat() {
       .from('messages')
       .select('*')
       .eq('user_id', user.id)
-      .order('created_at', { ascending: true })
+      .order('created_at', { ascending: false }).limit(8)
       .then(({ data }) => setMessages(data || []))
   }, [user])
 
